@@ -10,7 +10,9 @@ public class PlayerHealth : MonoBehaviour
 	public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
 	public AudioClip deathClip;                                 // The audio clip to play when the player dies.
 	public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
-	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
+	public Color flashColour = new Color(1f, 0f, 0f, 0.1f); 
+	public bool maskOn=false;
+	// The colour the damageImage is set to, to flash.
 
 
 	Animator anim;                                              // Reference to the Animator component.
@@ -56,29 +58,34 @@ public class PlayerHealth : MonoBehaviour
 			print (gameObject.tag);
 			Destroy (other.gameObject);
 			healthSlider.value += amount;
-
+		}
+		if (other.gameObject.tag.Equals ("GasMask")) {
+			maskOn = true;
+			Destroy (other.gameObject);
 		}
 	}
 	public void TakeDamage (int amount)
 	{
-		// Set the damaged flag so the screen will flash.
-		damaged = true;
+		if (!maskOn) {
+			// Set the damaged flag so the screen will flash.
+			damaged = true;
 
-		// Reduce the current health by the damage amount.
-		currentHealth -= amount;
+			// Reduce the current health by the damage amount.
+			currentHealth -= amount;
 
-		// Set the health bar's value to the current health.
-		healthSlider.value = currentHealth;
+			// Set the health bar's value to the current health.
+			healthSlider.value = currentHealth;
 
-		// Play the hurt sound effect.
-		playerAudio.Play ();
+			// Play the hurt sound effect.
+			playerAudio.Play ();
 
-		// If the player has lost all it's health and the death flag hasn't been set yet...
-		/*if(currentHealth <= 0 && !isDead)
+			// If the player has lost all it's health and the death flag hasn't been set yet...
+			/*if(currentHealth <= 0 && !isDead)
 		{
 			// ... it should die.
 			Death ();
 		}*/
+		}
 	}
 
 

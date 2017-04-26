@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
 	public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f); 
 	public bool maskOn=false;
+	public bool extin = false;
 	// The colour the damageImage is set to, to flash.
 
 
@@ -53,55 +54,29 @@ public class PlayerHealth : MonoBehaviour
 	}
 
 	public void OnTriggerEnter (Collider other){
-		int amount = 15;
+		int mm = 30;
 		if (other.gameObject.tag.Equals ("Food")) {
 			print (gameObject.tag);
 			Destroy (other.gameObject);
-			healthSlider.value += amount;
+			healthSlider.value += mm;
+			currentHealth += mm;
+			print (currentHealth);
 		}
 		if (other.gameObject.tag.Equals ("GasMask")) {
 			maskOn = true;
 			Destroy (other.gameObject);
 		}
-	}
-	public void TakeDamage (int amount)
-	{
-		if (!maskOn) {
-			// Set the damaged flag so the screen will flash.
-			damaged = true;
-
-			// Reduce the current health by the damage amount.
-			currentHealth -= amount;
-
-			// Set the health bar's value to the current health.
-			healthSlider.value = currentHealth;
-
-			// Play the hurt sound effect.
-			playerAudio.Play ();
-
-			// If the player has lost all it's health and the death flag hasn't been set yet...
-			/*if(currentHealth <= 0 && !isDead)
-		{
-			// ... it should die.
-			Death ();
-		}*/
+		if (other.gameObject.tag.Equals ("Ext")) {
+			extin = true;
+			Destroy (other.gameObject);
 		}
 	}
 
-
-	/*void Death ()
+	public void TakeDamage (int amount)
 	{
-		// Set the death flag so this function won't be called again.
-		isDead = true;
-
-		// Tell the animator that the player is dead.
-		anim.SetTrigger ("Die");
-
-		// Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
-		playerAudio.clip = deathClip;
+		currentHealth -= amount;
+		healthSlider.value = currentHealth;
 		playerAudio.Play ();
-
-		// Turn off the movement and shooting scripts.
-		//playerMovement.enabled = false;
-	}   */    
+		print (currentHealth);
+	}
 }

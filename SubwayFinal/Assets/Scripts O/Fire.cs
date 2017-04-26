@@ -13,21 +13,26 @@ public class Fire : MonoBehaviour {
 	float timer;
 	bool fuego;
 	bool Epress = false;
+	public AudioClip extin;
+	public AudioSource fire;
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerHealth = player.GetComponent <PlayerHealth> ();
-
+		fire.Pause ();
 	}
 
 	void OnTriggerEnter (Collider other) {
 		if (other.gameObject == player) {
+			fire.Play ();
 			playerInRange = true;
+
 		}
 	}
 
 	void OnTriggerExit (Collider other) {
 		if (other.gameObject == player) {
+			fire.Pause ();
 			playerInRange = false;
 		}
 	}
@@ -36,7 +41,9 @@ public class Fire : MonoBehaviour {
 	void Update () {
 			if(playerInRange){
 				if(playerHealth.extin){
-				if (Input.GetKeyDown(KeyCode.E)){
+				if (Input.GetKeyDown(KeyCode.E)){ 
+					print("EliminaFuego");
+					//GetComponent<AudioSource>().Play(0); //NO SE REPRODUCE
 						Destroy (fuegoG);
 					}
 				}

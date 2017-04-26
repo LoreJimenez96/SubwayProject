@@ -12,6 +12,7 @@ public class EnviromentDamage : MonoBehaviour {
 	bool playerInRange;
 	float timer;
 
+
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerHealth = player.GetComponent <PlayerHealth> ();
@@ -38,6 +39,7 @@ public class EnviromentDamage : MonoBehaviour {
 	void Update () {
 		timer += Time.deltaTime; 
 		if (timer >= timeBetweenAttacks && playerInRange) {
+			
 			Damage ();
 		}
 	}

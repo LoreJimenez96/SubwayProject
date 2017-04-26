@@ -13,6 +13,8 @@ public class PlayerHealth : MonoBehaviour
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f); 
 	public bool maskOn=false;
 	public bool extin = false;
+	public AudioClip collectItem;
+
 	// The colour the damageImage is set to, to flash.
 
 
@@ -56,6 +58,7 @@ public class PlayerHealth : MonoBehaviour
 	public void OnTriggerEnter (Collider other){
 		int mm = 30;
 		if (other.gameObject.tag.Equals ("Food")) {
+			GetComponent<AudioSource> ().PlayOneShot (collectItem);
 			print (gameObject.tag);
 			Destroy (other.gameObject);
 			healthSlider.value += mm;
@@ -64,10 +67,14 @@ public class PlayerHealth : MonoBehaviour
 		}
 		if (other.gameObject.tag.Equals ("GasMask")) {
 			maskOn = true;
+			print ("mask on");
+			GetComponent<AudioSource> ().PlayOneShot (collectItem);
 			Destroy (other.gameObject);
 		}
 		if (other.gameObject.tag.Equals ("Ext")) {
 			extin = true;
+			print ("ext in inventory");
+			GetComponent<AudioSource> ().PlayOneShot (collectItem);
 			Destroy (other.gameObject);
 		}
 	}

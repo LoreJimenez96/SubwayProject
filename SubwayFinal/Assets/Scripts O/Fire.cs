@@ -17,6 +17,7 @@ public class Fire : MonoBehaviour {
 	public AudioClip extin;
 	public AudioSource fire;
 	public Text danger;
+	public Text itemUse;
 	public GameObject explosion;
 	public Text exptimer;
 
@@ -25,6 +26,7 @@ public class Fire : MonoBehaviour {
 		playerHealth = player.GetComponent <PlayerHealth> ();
 		fire.Pause ();
 		danger.text = "";
+
 	}
 
 	void OnTriggerEnter (Collider other) {
@@ -47,13 +49,14 @@ public class Fire : MonoBehaviour {
 	void Update () {
 			if(playerInRange){
 				if(playerHealth.extin){
-				danger.text = "Press E to use the extinguisher.";
+				itemUse.text = "Press E to use the extinguisher.";
 				if (Input.GetKeyDown(KeyCode.E)){ 
 					print("EliminaFuego");
 					//GetComponent<AudioSource>().Play(0); //NO SE REPRODUCE
 					danger.text = "Good! Fire is off, keep looking for the exit.";
 					exptimer.text = "";
-						Destroy (fuegoG);
+					itemUse.text ="";
+					Destroy (fuegoG);
 					Destroy	(explosion);
 					}
 				}

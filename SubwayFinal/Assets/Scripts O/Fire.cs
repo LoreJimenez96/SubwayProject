@@ -18,6 +18,7 @@ public class Fire : MonoBehaviour {
 	public AudioSource fire;
 	public Text danger;
 	public GameObject explosion;
+	public Text exptimer;
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -46,10 +47,12 @@ public class Fire : MonoBehaviour {
 	void Update () {
 			if(playerInRange){
 				if(playerHealth.extin){
+				danger.text = "Press E to use the extinguisher.";
 				if (Input.GetKeyDown(KeyCode.E)){ 
 					print("EliminaFuego");
 					//GetComponent<AudioSource>().Play(0); //NO SE REPRODUCE
 					danger.text = "Good! Fire is off, keep looking for the exit.";
+					exptimer.text = "";
 						Destroy (fuegoG);
 					Destroy	(explosion);
 					}

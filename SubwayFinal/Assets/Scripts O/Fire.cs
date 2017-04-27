@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Fire : MonoBehaviour {
 
@@ -15,18 +16,21 @@ public class Fire : MonoBehaviour {
 	bool Epress = false;
 	public AudioClip extin;
 	public AudioSource fire;
+	public Text danger;
+	public GameObject explosion;
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerHealth = player.GetComponent <PlayerHealth> ();
 		fire.Pause ();
+		danger.text = "";
 	}
 
 	void OnTriggerEnter (Collider other) {
 		if (other.gameObject == player) {
 			fire.Play ();
 			playerInRange = true;
-
+			danger.text = "Watch out for the fire! Get the extinguisher.";
 		}
 	}
 
@@ -34,6 +38,7 @@ public class Fire : MonoBehaviour {
 		if (other.gameObject == player) {
 			fire.Pause ();
 			playerInRange = false;
+			danger.text = "";
 		}
 	}
 	
@@ -44,7 +49,9 @@ public class Fire : MonoBehaviour {
 				if (Input.GetKeyDown(KeyCode.E)){ 
 					print("EliminaFuego");
 					//GetComponent<AudioSource>().Play(0); //NO SE REPRODUCE
+					danger.text = "Good! Fire is off, keep looking for the exit.";
 						Destroy (fuegoG);
+					Destroy	(explosion);
 					}
 				}
 			}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnviromentDamage : MonoBehaviour {
 
@@ -11,6 +12,8 @@ public class EnviromentDamage : MonoBehaviour {
 	PlayerHealth playerHealth;
 	bool playerInRange;
 	float timer;
+
+
 
 
 	void Start () {
@@ -24,6 +27,7 @@ public class EnviromentDamage : MonoBehaviour {
 		if (other.gameObject == player) {
 			if (playerHealth.maskOn == false) {
 				playerInRange = true;
+
 			}
 
 		}
@@ -32,6 +36,7 @@ public class EnviromentDamage : MonoBehaviour {
 	void OnTriggerExit (Collider other) {
 		if (other.gameObject == player) {
 			playerInRange = false;
+
 		}
 	}
 	

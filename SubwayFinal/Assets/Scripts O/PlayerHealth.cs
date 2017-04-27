@@ -58,8 +58,9 @@ public class PlayerHealth : MonoBehaviour
 	public void OnTriggerEnter (Collider other){
 		int mm = 30;
 		if (other.gameObject.tag.Equals ("Food")) {
+			//print (gameObject.tag);
+
 			GetComponent<AudioSource> ().PlayOneShot (collectItem);
-			print (gameObject.tag);
 			Destroy (other.gameObject);
 			healthSlider.value += mm;
 			currentHealth += mm;
@@ -73,7 +74,7 @@ public class PlayerHealth : MonoBehaviour
 		}
 		if (other.gameObject.tag.Equals ("Ext")) {
 			extin = true;
-			print ("ext in inventory");
+
 			GetComponent<AudioSource> ().PlayOneShot (collectItem);
 			Destroy (other.gameObject);
 		}

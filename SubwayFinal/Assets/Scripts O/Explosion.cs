@@ -34,7 +34,7 @@ public class Explosion : MonoBehaviour {
 
 		if (inRange == true) {
 			explosionEnters.text = "You have 90 seconds to turn the fire off or it'll explode.";
-			print (explosionTimer);
+			//print (explosionTimer);
 
 			if (explosionTimer <= 0) {
 				playerHealth.currentHealth = 0;

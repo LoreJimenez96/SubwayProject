@@ -22,10 +22,8 @@ public class Lever : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (playerInRange == true) {
-			
 			print (state);
 			intruction.text = "Press I to turn on and O to turn off";
-			//Show "Press P to turn on/off"
 
 			if(Input.GetKeyDown(KeyCode.I)&& state==false){
 				animator.SetBool ("isOn", true);
@@ -42,6 +40,7 @@ public class Lever : MonoBehaviour {
 				print (state);
 
 			}
+
 		}
 	}
 

@@ -17,6 +17,7 @@ public class Fire : MonoBehaviour {
 	public AudioClip extin;
 	public AudioSource fire;
 	public Text danger;
+	public GameObject explosion;
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -50,6 +51,7 @@ public class Fire : MonoBehaviour {
 					//GetComponent<AudioSource>().Play(0); //NO SE REPRODUCE
 					danger.text = "Good! Fire is off, keep looking for the exit.";
 						Destroy (fuegoG);
+					Destroy	(explosion);
 					}
 				}
 			}

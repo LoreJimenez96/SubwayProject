@@ -14,7 +14,6 @@ public class PlayerHealth : MonoBehaviour
 	public bool maskOn=false;
 	public bool extin = false;
 	public AudioClip collectItem;
-	public Text collectText;
 
 	// The colour the damageImage is set to, to flash.
 
@@ -34,7 +33,6 @@ public class PlayerHealth : MonoBehaviour
 		//playerMovement = GetComponent <FirstPersonController> ();
 		// Set the initial health of the player.
 		currentHealth = startingHealth;
-		collectText.text = "";
 	}
 
 
@@ -61,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
 		int mm = 30;
 		if (other.gameObject.tag.Equals ("Food")) {
 			//print (gameObject.tag);
-			collectText.text = "Great! Food gives you health! (+15)";
+
 			GetComponent<AudioSource> ().PlayOneShot (collectItem);
 			Destroy (other.gameObject);
 			healthSlider.value += mm;
@@ -71,13 +69,12 @@ public class PlayerHealth : MonoBehaviour
 		if (other.gameObject.tag.Equals ("GasMask")) {
 			maskOn = true;
 			print ("mask on");
-			collectText.text = "Use the gas mask to go through gas";
 			GetComponent<AudioSource> ().PlayOneShot (collectItem);
 			Destroy (other.gameObject);
 		}
 		if (other.gameObject.tag.Equals ("Ext")) {
 			extin = true;
-			collectText.text = "Use the extinguisher to turn the fire off";
+
 			GetComponent<AudioSource> ().PlayOneShot (collectItem);
 			Destroy (other.gameObject);
 		}

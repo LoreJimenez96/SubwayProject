@@ -12,14 +12,14 @@ public class EnviromentDamage : MonoBehaviour {
 	PlayerHealth playerHealth;
 	bool playerInRange;
 	float timer;
-	public Text danger;
+
 
 
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerHealth = player.GetComponent <PlayerHealth> ();
-		danger.text = "";
+
 
 	}
 
@@ -27,7 +27,7 @@ public class EnviromentDamage : MonoBehaviour {
 		if (other.gameObject == player) {
 			if (playerHealth.maskOn == false) {
 				playerInRange = true;
-				danger.text = "There's a gas leak, be carful. You must need a mask";
+
 			}
 
 		}
@@ -36,7 +36,7 @@ public class EnviromentDamage : MonoBehaviour {
 	void OnTriggerExit (Collider other) {
 		if (other.gameObject == player) {
 			playerInRange = false;
-			danger.text = "";
+
 		}
 	}
 	

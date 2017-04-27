@@ -21,8 +21,9 @@ public class GameOverManager : MonoBehaviour {
 			screenFader.color = new Color (107f, 200f, 220f, 250f);
 			gameOver.color = new Color (255f, 255f, 255f, 255f);
 		
-		if (restartTimer >= restartDelay)
-			Application.LoadLevel (Application.loadedLevel);
+			if (restartTimer >= restartDelay) {
+				Application.LoadLevel (Application.loadedLevel);
+			}
 	}
 
 }

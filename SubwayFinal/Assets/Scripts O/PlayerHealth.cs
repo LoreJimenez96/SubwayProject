@@ -60,8 +60,9 @@ public class PlayerHealth : MonoBehaviour
 	public void OnTriggerEnter (Collider other){
 		int mm = 30;
 		if (other.gameObject.tag.Equals ("Food")) {
+			//print (gameObject.tag);
+			collectText.text = "Great! Food gives you health! (+15)";
 			GetComponent<AudioSource> ().PlayOneShot (collectItem);
-			print (gameObject.tag);
 			Destroy (other.gameObject);
 			healthSlider.value += mm;
 			currentHealth += mm;

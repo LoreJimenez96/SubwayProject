@@ -13,24 +13,36 @@ public class Fire : MonoBehaviour {
 	bool playerInRange;
 	float timer;
 	bool fuego;
-	bool Epress = false;
+	//bool press = false;
 	public AudioClip extin;
 	public AudioSource fire;
-	public Text danger;
+	public GameObject danger;
+	public Text itemUse;
 	public GameObject explosion;
+	public GameObject pressE;
+	public GameObject fireOff;
+	public Text exptimer;
+	public bool activeF;
+	public bool activeFO;
+
+	float timerT = 3f;
+
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerHealth = player.GetComponent <PlayerHealth> ();
 		fire.Pause ();
-		danger.text = "";
+		danger.gameObject.SetActive (false);
+		pressE.gameObject.SetActive (false);
+		fireOff.gameObject.SetActive (false);
 	}
 
 	void OnTriggerEnter (Collider other) {
 		if (other.gameObject == player) {
 			fire.Play ();
 			playerInRange = true;
-			danger.text = "Watch out for the fire! Get the extinguisher.";
+			danger.gameObject.SetActive (true);
+			activeF = true;
 		}
 	}
 
@@ -38,7 +50,6 @@ public class Fire : MonoBehaviour {
 		if (other.gameObject == player) {
 			fire.Pause ();
 			playerInRange = false;
-			danger.text = "";
 		}
 	}
 	
@@ -46,12 +57,18 @@ public class Fire : MonoBehaviour {
 	void Update () {
 			if(playerInRange){
 				if(playerHealth.extin){
+				pressE.gameObject.SetActive (true);
 				if (Input.GetKeyDown(KeyCode.E)){ 
 					print("EliminaFuego");
+					pressE.gameObject.SetActive (false);
+					fireOff.gameObject.SetActive (true);
+					activeFO = true;
 					//GetComponent<AudioSource>().Play(0); //NO SE REPRODUCE
-					danger.text = "Good! Fire is off, keep looking for the exit.";
-						Destroy (fuegoG);
+					//danger.text = "Good! Fire is off, keep looking for the exit.";
+					exptimer.text = "";
+					Destroy (fuegoG);
 					Destroy	(explosion);
+					Destroy (pressE);
 					}
 				}
 			}
@@ -60,12 +77,32 @@ public class Fire : MonoBehaviour {
 		if (timer >= timeBetweenAttacks && playerInRange) {
 			Damage ();
 		}
+
+		if (activeF == true) {
+			Feedback (danger, activeF);
+		}
+		if (activeFO == true) {
+			Feedback (fireOff, activeFO);
+		}
 	}
 
 	void Damage () {
 		timer = 0f;
 		if (playerHealth.currentHealth > 0) {
 			playerHealth.TakeDamage (attackDamage);
+		}
+	}
+
+	public void Feedback(GameObject other, bool on)
+	{
+
+		if(on==true)
+		{
+			timerT-=Time.deltaTime;
+			//print ("TimerFeedback: " + timer);
+			if(timer<=0){
+				other.gameObject.SetActive(false);
+			}
 		}
 	}
 }

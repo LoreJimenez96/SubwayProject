@@ -20,11 +20,15 @@ public class OpenLevel : MonoBehaviour {
 	GameObject player;
 	public bool enter;
 	public bool exit;
+	public GameObject codeText;
+	public bool active;
+	public float timer=3f;
 
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
+		codeText.gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -34,27 +38,27 @@ public class OpenLevel : MonoBehaviour {
 		lever1 = GameObject.FindGameObjectWithTag("L1");
 		Lever l1Lever = lever1.GetComponent<Lever> ();
 		l1 = l1Lever.state;
-		print ("Lever 1: "+l1);
+		//print ("Lever 1: "+l1);
 
 		lever2= GameObject.FindGameObjectWithTag("L2");
 		Lever l2Lever = lever2.GetComponent<Lever> ();
 		l2 = l2Lever.state;
-		print ("Lever 2: "+l2);
+		//print ("Lever 2: "+l2);
 
 		lever3= GameObject.FindGameObjectWithTag("L3");
 		Lever l3Lever = lever3.GetComponent<Lever> ();
 		l3 = l3Lever.state;
-		print ("Lever 3: "+l3);
+		//print ("Lever 3: "+l3);
 
 		lever4= GameObject.FindGameObjectWithTag("L4");
 		Lever l4Lever = lever4.GetComponent<Lever> ();
 		l4 = l4Lever.state;
-		print ("Lever 4: "+l4);
+		//print ("Lever 4: "+l4);
 
 		lever5= GameObject.FindGameObjectWithTag("L5");
 		Lever l5Lever = lever5.GetComponent<Lever> ();
 		l5 = l5Lever.state;
-		print ("Lever 5: "+l5);
+		//print ("Lever 5: "+l5);
 
 	
 			//Sacar el valor de estas booleans de cada lever
@@ -64,14 +68,20 @@ public class OpenLevel : MonoBehaviour {
 		if (l1 == true && l2 == false && l3 == true && l4 == true && l5 == false && isOpen == false) {
 			animator.SetBool ("isOpen", true);
 			print ("OPEN");
+			codeText.gameObject.SetActive (true);
+			active = true;
 		} else {
 		
-			print ("AUN NO ESTA LA COMBINACION");
+			//print ("AUN NO ESTA LA COMBINACION");
 		}
+		if(active == true) {
+			Feedback(codeText,active);
+		}
+
 		/*if (Input.GetKeyDown(KeyCode.L)&&isOpen==false) {
 			animator.SetBool ("isOpen",true);
 			print ("open");
-
+	
 
 		}*/
 		if (enter==true) {
@@ -93,4 +103,17 @@ public class OpenLevel : MonoBehaviour {
 		}
 	}*/
 
+	public void Feedback(GameObject other, bool on)
+	{
+
+		if(on==true)
+		{
+			timer-=Time.deltaTime;
+			//print ("TimerFeedback: " + timer);
+			if(timer<=0){
+				other.gameObject.SetActive(false);
+			}
+		}
+
+	}
 }

@@ -11,14 +11,19 @@ public class Explosion : MonoBehaviour {
 	PlayerHealth playerHealth;
 	public Text expTimer;
 	public bool activated;
+	public bool activeE;
+	public GameObject info;
+	public float timer=5f;
+
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		explosionTimer = 90.0f;
-		explosionEnters.text = "";
+		info.gameObject.SetActive (false);
 		playerHealth = player.GetComponent <PlayerHealth> ();
 		activated = false;
+
 	}
 	
 	// Update is called once per frame
@@ -33,15 +38,18 @@ public class Explosion : MonoBehaviour {
 		}
 
 		if (inRange == true) {
-			explosionEnters.text = "You have 90 seconds to turn the fire off or it'll explode.";
-			//print (explosionTimer);
+			info.gameObject.SetActive (true);
+			activeE = true;
 
 			if (explosionTimer <= 0) {
 				playerHealth.currentHealth = 0;
-				print ("explota");
-				explosionEnters.text = "";
+				//print ("explota");
+				//explosionEnters.text = "";
 				explosionTimer -= 0;
 			}
+		}
+		if (activeE == true) {
+			Feedback(info,activeE);
 		}
 	}
 
@@ -58,5 +66,17 @@ public class Explosion : MonoBehaviour {
 			inRange = false;
 		}
 
+	}
+
+	public void Feedback(GameObject other, bool on)
+	{
+		if(on==true)
+		{
+			timer-=Time.deltaTime;
+			//print ("TimerFeedback: " + timer);
+			if(timer<=0){
+				other.gameObject.SetActive(false);
+			}
+		}
 	}
 }

@@ -9,13 +9,16 @@ public class Lever : MonoBehaviour {
 	GameObject player;
 	Animator animator;
 	public bool state;
-	public Text intruction;
+	public GameObject instruction;
+	public bool activeI;
+	public float timer=.5f;
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		animator = GetComponent<Animator> ();
 		state = animator.GetBool ("isOn");
+		instruction.gameObject.SetActive (false);
 
 	}
 	
@@ -23,8 +26,9 @@ public class Lever : MonoBehaviour {
 	void Update () {
 		if (playerInRange == true) {
 			print (state);
-			intruction.text = "Press I to turn on and O to turn off";
-
+	
+			instruction.gameObject.SetActive(true);
+			activeI = true;
 			if(Input.GetKeyDown(KeyCode.I)&& state==false){
 				animator.SetBool ("isOn", true);
 				state = true;
@@ -42,19 +46,37 @@ public class Lever : MonoBehaviour {
 			}
 
 		}
+
+		if (activeI == true) {
+			Feedback(instruction,activeI);
+		}
 	}
 
 	void OnTriggerEnter (Collider other){
 		if (other.gameObject == player) {
 			print ("player in range");
 			playerInRange = true;
-
+			timer = .5f;
 		}
 	}
 
 	void OnTriggerExit (Collider other) {
 		if (other.gameObject == player) {
 			playerInRange = false;
+			timer = .5f;
+		}
+	}
+
+	public void Feedback(GameObject other, bool on)
+	{
+
+		if(on==true)
+		{
+			timer-=Time.deltaTime;
+			//print ("TimerFeedback: " + timer);
+			if(timer<=0){
+				other.gameObject.SetActive(false);
+			}
 		}
 	}
 

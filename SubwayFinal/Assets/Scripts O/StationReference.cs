@@ -10,6 +10,7 @@ public class StationReference : MonoBehaviour {
 	public Text station;
 	public string tag;
 
+
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");

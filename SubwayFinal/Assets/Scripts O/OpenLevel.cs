@@ -21,6 +21,8 @@ public class OpenLevel : MonoBehaviour {
 	public bool enter;
 	public bool exit;
 	public GameObject codeText;
+	public GameObject flood;
+	public bool activeF;
 	public bool active;
 	public float timer=3f;
 
@@ -29,6 +31,7 @@ public class OpenLevel : MonoBehaviour {
 		animator = GetComponent<Animator> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
 		codeText.gameObject.SetActive (false);
+		flood.gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -70,14 +73,20 @@ public class OpenLevel : MonoBehaviour {
 			print ("OPEN");
 			codeText.gameObject.SetActive (true);
 			active = true;
+
 		} else {
 		
 			//print ("AUN NO ESTA LA COMBINACION");
 		}
 		if(active == true) {
 			Feedback(codeText,active);
+
 		}
 
+		if (activeF == true) {
+			Feedback (flood, activeF);
+
+		}
 		/*if (Input.GetKeyDown(KeyCode.L)&&isOpen==false) {
 			animator.SetBool ("isOpen",true);
 			print ("open");
@@ -85,6 +94,8 @@ public class OpenLevel : MonoBehaviour {
 
 		}*/
 		if (enter==true) {
+			flood.gameObject.SetActive (true);
+			activeF = true;
 			animator.SetBool ("isOpen",false);
 			print ("close");
 		}
